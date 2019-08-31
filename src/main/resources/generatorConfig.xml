@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location= "JarFile/mysql-connector-java-8.0.11.jar"/>
+    <context id="context1">
+
+<!--     JDBCの設定です (1) -->
+        <jdbcConnection
+            driverClass="com.mysql.cj.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/mssm? serverTimezone=UTC"
+            userId="root"
+            password="123456"
+        />
+
+<!--     自動生成するエンティティの設定です (2) -->
+        <javaModelGenerator
+            targetPackage="zooog.jp.model"
+            targetProject="src/main/java/"
+        />
+        <sqlMapGenerator
+            targetPackage="mapper"
+            targetProject="src/main/resources/"
+        />
+        <javaClientGenerator
+            targetPackage="zooog.jp.entity"
+            targetProject="src/main/java/"
+            type="XMLMAPPER"
+        />
+
+<!--     生成対象のテーブルです（3) -->
+<!--         <table schema="mssm" tableName="Actor" /> -->
+       <!--  <table schema="mssm" tableName="Test" /> -->
+        <table schema="mssm" tableName="project" />
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Add icon library -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>求人ウェブサイト</title>
+
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/blog.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+
+<!-- Style追加 -->
+<link href="../style/style.css" rel="stylesheet">
+<script type="text/javascript" src="../jsStyleZoog/project.js"></script>
+
+</head>
+<body>
+	<!--ログインフォーム -->
+	<div id="loginForm" style="display: none">
+		<form>
+			<div class="form-group">
+				<label for="exampleInputEmail1">ID</label> <input type="text"
+					class="form-control" placeholder="Username" id="user">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label> <input
+					type="password" class="form-control" placeholder="Password"
+					id="password">
+			</div>
+			<div class="form-group form-check">
+				<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				<label class="form-check-label" for="exampleCheck1">Check me
+					out</label>
+			</div>
+			<input type="button" value="ログイン" class="btn btn-primary"
+				id="loginAccess" /> <input type="button" value="キャンセル"
+				class="btn btn-primary" id="canellogin" />
+		</form>
+	</div>
+	<!-- 新規登録 -->
+	<div id="createAccount" style="display: none">
+		<form>
+			<div class="form-group">
+				<label for="exampleInputEmail1">ID</label> <input type="text"
+					class="form-control" aria-describedby="emailHelp"
+					placeholder="Username" id="userAccount">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label> <input
+					type="password" class="form-control" placeholder="Password"
+					id="passwordAccount">
+			</div>
+			<div class="form-group form-check">
+				<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				<label class="form-check-label" for="exampleCheck1">Check me
+					out</label>
+			</div>
+			<input type="button" value="アカウントを作成" class="btn btn-primary"
+				id="createuser" /> <input type="button" value="キャンセル"
+				class="btn btn-primary" id="canellignup" />
+		</form>
+	</div>
+
+	<div class="bg-dark text-white p-1 mb-1">
+		<div class="col-11 d-flex justify-content-end align-items-center"
+			id="loginfrom">
+			<input type="button" value="ログイン"
+				class="btn btn-sm btn-outline-secondary" id="login" /> <input
+				type="button" value="新規登録" class="btn btn-sm btn-outline-secondary"
+				id="lignup" />
+		</div>
+		<div id="userName"></div>
+	</div>
+
+	<main role="main" class="container">
+	<div class="hidden-xs">
+		<ol class="breadcrumb">
+			<li class="active"><a href="../../ZoogProject/index.html">ホーム</a></li>
+			<li>&gt;</li>
+			<li class="active">案件情報</li>
+		</ol>
+	</div>
+	<div class="border rounded projectinfo">
+		<label class="head-title">案件情報</label>
+		<div class="project-title-lg hidden-xs">
+			<span id="project-title"></span>
+		</div>
+		<table class="project-brief-table">
+			<tbody id="case-information">
+			</tbody>
+		</table>
+		<div class="apply">
+			<button  class="btn btn-success "
+				onclick="window.document.location='/center/project/apply/P000509/'">
+				<span>応募する</span>
+			</button>
+		</div>
+	</div>
+	<div class="border rounded projectinfo">
+		<label class="head-title">案件詳細</label>
+		<table class="project-brief-table">
+			<tbody id="case-details"></tbody>
+		</table>
+	</div>
+	<div class="information-footer">
+		<button class="btn btn-success" onclick="history.back()">前に戻る</button>
+		<a href="/login/?next=/project/P000509/" class="btn btn-success ">
+			<span class="fa fa-heart-o"></span> <span>お気に入り</span>
+		</a>
+	</div>
+	<!-- 	<div id="employee_table"></div> --> </main>
+	<script src="../js/popper.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function() {
+	$.ajaxSetup({
+	    beforeSend : function(xhr) {
+	        xhr.overrideMimeType('text/html;charset=Shift_JIS');
+	    }
+	});
+	 $(window).ready(function() {
+		$.ajax({
+			url : "../DataBase/data.csv",
+			   dataType: 'text',
+			   contentType: 'charset=utf-8',
+            /* contentType: "application/json;charset=utf-8", */
+			success : function(data) {
+				var employee_data = data.split(/\r\n|\n|\r/);
+				var table_data = '<table class="table table-bordered table-striped">';
+				var project_table = '';
+				var case_details='';
+				for (var count = 0; count < employee_data.length; count++) {
+					var cell_data = employee_data[count].split(",");
+					table_data += '<tr>';
+					for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
+						if (count === 0) {
+							table_data += '<th>'+cell_data[cell_count]+'</th>';
+						}else{
+							table_data += '<td>'+cell_data[cell_count]+'</td>';
+						}
+						if (count === 3 && cell_count === 0) {
+							$('#project-title').append(cell_data[2]);
+							project_table += '<tr>';
+							project_table +='<th class="mailBox">Max月額</th>' ;
+							project_table +='<td><span class="red bold">' + cell_data[3] +'</span></td>';
+							project_table += '</tr>';
+							project_table += '<tr>';
+							project_table +='<th class="mailBox">最寄駅</th>' ;
+							project_table +='<td><span class="red bold">' + cell_data[4] +'</span></td>';
+							project_table += '</tr>';
+							project_table += '<tr>';
+							project_table +='<th class="mailBox">案件番号</th>' ;
+							project_table +='<td><span class="red bold">' + cell_data[1] +'</span></td>';
+							project_table += '</tr>';
+							project_table += '<tr>';
+							project_table +='<th class="mailBox">募集対象</th>' ;
+							project_table +='<td><span class="red bold">' + cell_data[5] +'</span></td>';
+							project_table += '</tr>';
+							project_table += '<tr>';
+							project_table +='<th class="mailBox">応募終了日</th>' ;
+							project_table +='<td><span class="red bold">' + cell_data[6] +'</span></td>';
+							project_table += '</tr>';
+
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">案件概要</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[22] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">掲載日</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[8] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">作業開始</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[9] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">作業期間</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[10] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">募集人数</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[10] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">案件種別</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[11] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">面談回数</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[15] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">日本語要求</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[16] +'</span></td>';
+							case_details += '</tr>';
+							case_details += '<tr>';
+							case_details +='<th class="mailBox">開発言語</th>' ;
+							case_details +='<td><span class="red bold">' + cell_data[21] +'</span></td>';
+							case_details += '</tr>';
+						}
+					}
+					table_data += '</tr>';
+				}
+				table_data += '</table>'
+				$('#case-information').html(project_table);
+				$('#case-details').html(case_details);
+				$('#employee_table').html(table_data);
+			}
+		});
+	});
+});
+
+	</script>
+</html>

@@ -1,0 +1,89 @@
+#loginfrom img{
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+/*   vertical-align: bottom;
+  transition: .3s; */
+  float: left;
+  clear: both;
+}
+img[Attributes Style] {
+    width: 127px;
+}
+}
+/* ログインフォーム */
+.common{
+	display: none;
+}
+/*検索タブ*/
+#actorID{
+	width: 80%; float: left; margin-right: 20px;
+}
+
+/* Css of Select Number of Rows */
+.pagination {
+  display: inline-block;
+}
+.pagination li{
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination li.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/*access.js css style*/
+td.notID{
+	width: 100%;
+	text-align: center;
+}
+
+#projectinfo tbody tr td a{
+	 text-decoration: none;
+	 color : #000;
+}
+/* Projec page */
+.head-title{
+    height: 17px;
+    border-left: 4px solid #17a2b8;
+    padding-left: 10px;
+    font-size: 15px;
+     display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.project-title-lg{
+	 margin: 10px;
+}
+#project-title{
+    margin: 40px;
+    font-size: 25px;
+    letter-spacing: 2px;
+    text-align: justify;
+    line-height: 1.4;
+}
+.projectinfo{
+	margin: 10px;
+}
+.projectinfo table tbody tr th{
+	text-align: inherit;
+    font-weight: normal;
+    font-size: 15px;
+    padding: 5px 5px;
+    vertical-align: sub;
+    color: #5c5c5c;
+}
+
+.projectinfo table tbody tr td span{
+	margin-left: 20px;
+	font-size: 15px;
+}
+.apply, .information-footer{
+	padding: 5px 20px;
+	width: auto;
+}
